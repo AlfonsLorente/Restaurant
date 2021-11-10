@@ -5,6 +5,9 @@
  */
 package restaurant;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author alfon
@@ -12,6 +15,11 @@ package restaurant;
 public class Table {
     private int count = 0;
     private int MAXMEALS = 50;
+    boolean hasCooked = false;
+    boolean hasEaten = false;
+    boolean tableInUse = false;
+    
+    
     public int getCount() {
         return count;
     }
@@ -21,24 +29,46 @@ public class Table {
     }
     
     public synchronized boolean placeMeal(){
-        boolean bool = false;
-        if(count < MAXMEALS){
-            this.setCount(this.getCount()+1);
-            System.out.println("Ahora hay " + count);
-            bool = true;
+        hasCooked = false;
+        if(count < MAXMEALS && !tableInUse){
+            tableInUse = true;
+            count++;
+            System.out.println("Ahora hay " + count + " Hamburguesas");
+            //isMeal = true;
+            hasCooked = true;
+            tableInUse = false;
+        }else{
+            while(tableInUse){
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         this.notifyAll();
-        return bool;
+        return hasCooked;
     }
     public synchronized boolean takeMeal(){
-        boolean bool = false;
-        if(count > 0){
-            this.setCount(this.getCount()-1);
-            System.out.println("Ahora hay " + count);
-            bool = true;
+        hasEaten = false;
+        if(count > 0 && !tableInUse){
+            tableInUse = true;
+            count--;
+            System.out.println("Ahora hay " + count + " Hamburguesas");
+            hasEaten = true;
+            tableInUse = false;
+
+        }else{
+            while(tableInUse){
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         this.notifyAll();
-        return bool;
+        return hasEaten;
 
     }
     

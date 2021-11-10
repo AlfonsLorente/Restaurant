@@ -18,8 +18,8 @@ public class MyTask extends JFrame {
     }
     
     
-    private int chefAmount = 6;
-    private int clientAmount = 8;
+    private int chefAmount =10;
+    private int clientAmount = 16;
     private ArrayList<Chef> chefs = new ArrayList<Chef>();
     private ArrayList<Client> clients = new ArrayList<Client>();
     private Table table = new Table();

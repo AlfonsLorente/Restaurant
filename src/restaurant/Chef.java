@@ -34,15 +34,16 @@ public class Chef extends Thread{
     
     public void cookBurger(Table table){
         try {
-            Thread.sleep(3000);
+            Thread.sleep((int)Math.floor(Math.random()*(6000-3000+1)+3000));
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }
         hasCooked = table.placeMeal();
         if(hasCooked){
-            this.setCount(this.getCount()+1);
-            System.out.println("Este chef lleva hechas " + count);
-        }
+            count++;
+            System.out.println("Este chef lleva hechas " + ++count);
+
+       }
     }
     
    

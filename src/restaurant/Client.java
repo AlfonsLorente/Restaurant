@@ -33,15 +33,16 @@ public class Client extends Thread {
     public void eatBurger(Table table){
         hasEaten = table.takeMeal();
         try {
-            Thread.sleep(5000);
+            Thread.sleep((int)Math.floor(Math.random()*(8000-5000+1)+5000));
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if(hasEaten){
-            this.setCount(this.getCount()+1);
-            System.out.println("Este cliente lleva comidas " + count);
+            count++;
+            System.out.println("Este cliente lleva pilladas " + count);
         }
+       
     }
     
     @Override
