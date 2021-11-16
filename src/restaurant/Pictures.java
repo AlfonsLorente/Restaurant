@@ -17,10 +17,10 @@ import javax.imageio.ImageIO;
  *
  * @author alfon
  */
-public class images {
+public class Pictures {
     Hashtable<String, BufferedImage> imgs = new Hashtable<>();
     
-    public images(){
+    public Pictures(){
         setImages();
     }
     
@@ -38,7 +38,7 @@ public class images {
             this.imgs.put("table", ImageIO.read(new File("IMG/table.png")));
             
         } catch (IOException ex) {
-            Logger.getLogger(images.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Pictures.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

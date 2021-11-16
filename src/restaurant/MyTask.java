@@ -19,7 +19,7 @@ public class MyTask extends JFrame {
     
     Thread thread ;
     private Viewer viewer;
-    private int chefAmount =10;
+    private int chefAmount =30;
     private int clientAmount = 16;
     private ArrayList<Chef> chefs = new ArrayList<Chef>();
     private ArrayList<Client> clients = new ArrayList<Client>();
@@ -32,6 +32,8 @@ public class MyTask extends JFrame {
         executeClients(); 
         
         viewer = new Viewer();
+        viewer.setChefs(chefs);
+        viewer.setClients(clients);
         this.setFrame();
         this.add(viewer);
         //thread = new  Thread(viewer);
@@ -81,7 +83,7 @@ public class MyTask extends JFrame {
         
         this.setTitle("Flame");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0, 0, 1900, 1000);
+        this.setBounds(10, 10, 1510, 800);
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);        
     }
