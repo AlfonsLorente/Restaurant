@@ -20,7 +20,7 @@ public class MyTask extends JFrame {
     Thread thread ;
     private Viewer viewer;
     private int chefAmount =30;
-    private int clientAmount = 16;
+    private int clientAmount = 45;
     private ArrayList<Chef> chefs = new ArrayList<Chef>();
     private ArrayList<Client> clients = new ArrayList<Client>();
     private Table table = new Table();
@@ -34,6 +34,7 @@ public class MyTask extends JFrame {
         viewer = new Viewer();
         viewer.setChefs(chefs);
         viewer.setClients(clients);
+        viewer.setTable(table);
         this.setFrame();
         this.add(viewer);
         //thread = new  Thread(viewer);

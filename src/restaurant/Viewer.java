@@ -7,6 +7,7 @@ package restaurant;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ public class Viewer extends Canvas{ //implements Runnable {
     private BufferStrategy bs;
     private ArrayList<Chef> chefs = new ArrayList<Chef>();
     private ArrayList<Client> clients = new ArrayList<Client>();
+    private Table table;
     private Pictures images;
     
 
@@ -34,7 +36,7 @@ public class Viewer extends Canvas{ //implements Runnable {
         this.setBackground(Color.CYAN);
         graphics = this.getGraphics();
         this.setVisible(true);
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(800, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 Viewer.this.repaint();
             }
@@ -52,9 +54,10 @@ public class Viewer extends Canvas{ //implements Runnable {
         }*/
         paintTable(g);
         paintChefs(g);
-       // paintClients(g);
+        paintClients(g);
        /*bs.show();
        g.dispose();*/
+       g.dispose();
         
  
     }
@@ -70,9 +73,16 @@ public class Viewer extends Canvas{ //implements Runnable {
         this.clients = clients;
     }
 
+    public void setTable(Table table) {
+        this.table = table;
+    }
+    
+
     private void paintTable(Graphics g) {
-        g.drawImage(images.loadImage("table").getScaledInstance(550, -1, BufferedImage.SCALE_SMOOTH), this.getWidth()/3,this.getHeight()/3, this);
-        //PINTAR NUMERO
+        g.drawImage(images.loadImage("table").getScaledInstance(400, -1, BufferedImage.SCALE_SMOOTH), this.getWidth()/3+63,this.getHeight()/3-50, this);
+        g.setColor(Color.RED);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 40)); 
+        g.drawString(Integer.toString(table.getCount()),  this.getWidth()/2,this.getHeight()/3+15);
     }
 
     private void paintChefs(Graphics g) {
@@ -85,9 +95,9 @@ public class Viewer extends Canvas{ //implements Runnable {
                 w= 0;
             }
             if(chefs.get(i).hasCooked){
-                g.drawImage(images.loadImage("cookingchef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
+                g.drawImage(images.loadImage("meatChef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
             }else{
-                g.drawImage(images.loadImage("standbychef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
+                g.drawImage(images.loadImage("standbyChef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
 
             }
             
@@ -97,7 +107,24 @@ public class Viewer extends Canvas{ //implements Runnable {
     }
 
     private void paintClients(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int w = 0;
+        int h = 400;
+        
+        for(int i = 0; i < clients.size(); i++){
+            if(i%15 == 0 && i !=0){
+                h = h+110;
+                w= 0;
+            }
+            if(clients.get(i).hasEaten){
+                g.drawImage(images.loadImage("meatClient").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
+            }else{
+                g.drawImage(images.loadImage("standbyClient").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
+
+            }
+            
+            w = w + 100;
+
+        }
     }
         
     // @Override

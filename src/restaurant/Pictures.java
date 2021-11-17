@@ -31,10 +31,10 @@ public class Pictures {
     
     private void setImages(){
         try {
-            this.imgs.put("cookingchef", ImageIO.read(new File("IMG/cookingchef.png")));
-            this.imgs.put("standbychef", ImageIO.read(new File("IMG/standbychef.png")));
-            this.imgs.put("eatingclient", ImageIO.read(new File("IMG/eatingclient.png")));
-            this.imgs.put("standbyclient", ImageIO.read(new File("IMG/standbyclient.png")));
+            this.imgs.put("meatChef", ImageIO.read(new File("IMG/cookingchef.png")));
+            this.imgs.put("standbyChef", ImageIO.read(new File("IMG/standbychef.png")));
+            this.imgs.put("meatClient", ImageIO.read(new File("IMG/eatingclient.png")));
+            this.imgs.put("standbyClient", ImageIO.read(new File("IMG/standbyclient.png")));
             this.imgs.put("table", ImageIO.read(new File("IMG/table.png")));
             
         } catch (IOException ex) {
