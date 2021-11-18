@@ -13,16 +13,28 @@ import java.util.logging.Logger;
  * @author alfon
  */
 public class Chef extends Thread{
+    
+    //VARIABLES
      private int count;
      private Table table;
      private boolean hasCooked = false;
      private boolean hasMeat = false;
 
+    //CONSTRUCTOR
     public Chef(Table table) {
         this.count = 0;
         this.table = table;
     }
 
+    //SETTERS AND GETTERS
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
     public void setHasMeat(boolean hasMeat) {
         this.hasMeat = hasMeat;
     }
@@ -32,40 +44,30 @@ public class Chef extends Thread{
         return hasMeat;
     }
      
-     
-     
-     public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-    
-    
-    public void cookBurger(Table table){
-        
+    //PUBLIC METHODS
+    //cookMeat: cooks a meat and take it to the table
+    public void cookMeat(Table table){
+        //Cook the meat
         try {
             Thread.sleep((int)Math.floor(Math.random()*(6000-3000+1)+3000));
             hasMeat = true;
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Take the meat to the table
         hasCooked = table.placeMeal(this);
-        
+        //Add count to the amount of cooked meats
         if(hasCooked){
             count++;
-            System.out.println("Este chef lleva hechas " + count);
-
        }
     }
     
    
-    
+    //run: overrides from Runnable and loops infinitely calling the cookMeat method
     @Override
     public void run() {
         while(true){
-        this.cookBurger(table);
+        this.cookMeat(table);
         }
     }
     

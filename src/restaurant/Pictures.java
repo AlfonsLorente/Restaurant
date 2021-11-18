@@ -18,23 +18,29 @@ import javax.imageio.ImageIO;
  * @author alfon
  */
 public class Pictures {
+    //VARIABLES
     Hashtable<String, BufferedImage> imgs = new Hashtable<>();
     
+    //CONSTRUCTOR
     public Pictures(){
         setImages();
     }
     
+    //PUBLIC METHODS
+    //loadImage: search in the hashtable for an image and returns it.
     public BufferedImage loadImage(String name){
         BufferedImage img = imgs.get(name);
         return img;
     }
     
+    //PRIVATE METHODS
+    //setImages: sets up the hashtable variable
     private void setImages(){
         try {
             this.imgs.put("background", ImageIO.read(new File("IMG/background.png")));
-            this.imgs.put("meatChef", ImageIO.read(new File("IMG/cookingchef.png")));
+            this.imgs.put("meatChef", ImageIO.read(new File("IMG/meatchef.png")));
             this.imgs.put("standbyChef", ImageIO.read(new File("IMG/standbychef.png")));
-            this.imgs.put("meatClient", ImageIO.read(new File("IMG/eatingclient.png")));
+            this.imgs.put("meatClient", ImageIO.read(new File("IMG/meatclient.png")));
             this.imgs.put("standbyClient", ImageIO.read(new File("IMG/standbyclient.png")));
             this.imgs.put("table", ImageIO.read(new File("IMG/table.png")));
             
