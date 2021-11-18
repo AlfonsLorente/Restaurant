@@ -28,15 +28,22 @@ public class Table {
         this.count = contador;
     }
     
-    public synchronized boolean placeMeal(){
+    public synchronized boolean placeMeal(Chef chef){
         hasCooked = false;
         if(count < MAXMEALS && !tableInUse){
             tableInUse = true;
+            chef.setHasMeat(false);
             count++;
             System.out.println("Ahora hay " + count + " Hamburguesas");
             //isMeal = true;
             hasCooked = true;
             tableInUse = false;
+            try {
+                Thread.sleep((int)Math.floor(Math.random()*(1000-500+1)+500));
+           
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }else{
             while(tableInUse){
                 try {
@@ -49,15 +56,22 @@ public class Table {
         this.notifyAll();
         return hasCooked;
     }
-    public synchronized boolean takeMeal(){
+    public synchronized boolean takeMeal(Client client){
         hasEaten = false;
         if(count > 0 && !tableInUse){
             tableInUse = true;
+            client.setHasMeat(true);
             count--;
             System.out.println("Ahora hay " + count + " Hamburguesas");
             hasEaten = true;
             tableInUse = false;
-
+            try {
+                Thread.sleep((int)Math.floor(Math.random()*(1000-500+1)+500));
+           
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
+            }   
+            
         }else{
             while(tableInUse){
                 try {

@@ -15,12 +15,22 @@ import java.util.logging.Logger;
 public class Client extends Thread {
     private int count;
     private Table table;
-    boolean hasEaten = false;
+    private boolean hasEaten = false;
+    private boolean hasMeat = false;
 
     public Client(Table table) {
         this.count = 0;
         this.table = table;
     }
+
+    public boolean getHasMeat() {
+        return hasMeat;
+    }
+
+    public void setHasMeat(boolean hasMeat) {
+        this.hasMeat = hasMeat;
+    }
+    
     
     public int getCount() {
         return count;
@@ -31,9 +41,11 @@ public class Client extends Thread {
     }
     
     public void eatBurger(Table table){
-        hasEaten = table.takeMeal();
+        hasEaten = table.takeMeal(this);
         try {
             Thread.sleep((int)Math.floor(Math.random()*(8000-5000+1)+5000));
+            hasMeat = false;
+           
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }

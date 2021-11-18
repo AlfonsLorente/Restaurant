@@ -22,9 +22,9 @@ import javax.swing.Timer;
  *
  * @author alfon
  */
-public class Viewer extends Canvas{ //implements Runnable {
-    private Graphics graphics;
-    private BufferStrategy bs;
+public class Viewer extends Canvas implements Runnable {   
+    //private Graphics graphics;
+   // private BufferStrategy bs;
     private ArrayList<Chef> chefs = new ArrayList<Chef>();
     private ArrayList<Client> clients = new ArrayList<Client>();
     private Table table;
@@ -33,31 +33,29 @@ public class Viewer extends Canvas{ //implements Runnable {
 
     public Viewer(){
         images = new Pictures();
-        this.setBackground(Color.CYAN);
-        graphics = this.getGraphics();
         this.setVisible(true);
-        Timer timer = new Timer(800, new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                Viewer.this.repaint();
-            }
-        });
-        timer.start();
+
     }
     
 
-    public void paint(Graphics g){
-        /*bs = this.getBufferStrategy();
+    public void paint(){
+        BufferStrategy bs = this.getBufferStrategy();
+        Graphics g = bs.getDrawGraphics();
         if (bs==null){
-            this.createBufferStrategy(2);
-        }else{
-            g = bs.getDrawGraphics();
-        }*/
+            return;
+        }
+        if (g==null){
+            return;
+        }
+        g.drawImage(images.loadImage("background"), 0, 0, this);
         paintTable(g);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("TimesRoman", Font.ITALIC, 20)); 
         paintChefs(g);
         paintClients(g);
-       /*bs.show();
-       g.dispose();*/
-       g.dispose();
+        bs.show();
+        g.dispose();
+       
         
  
     }
@@ -94,13 +92,14 @@ public class Viewer extends Canvas{ //implements Runnable {
                 h = h+110;
                 w= 0;
             }
-            if(chefs.get(i).hasCooked){
+            if(chefs.get(i).getHasMeat()){
                 g.drawImage(images.loadImage("meatChef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
             }else{
                 g.drawImage(images.loadImage("standbyChef").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
 
             }
-            
+            g.drawString(Integer.toString(chefs.get(i).getCount()),w+15,h+80);
+
             w = w + 100;
 
         }
@@ -115,32 +114,37 @@ public class Viewer extends Canvas{ //implements Runnable {
                 h = h+110;
                 w= 0;
             }
-            if(clients.get(i).hasEaten){
+            if(clients.get(i).getHasMeat()){
                 g.drawImage(images.loadImage("meatClient").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
             }else{
                 g.drawImage(images.loadImage("standbyClient").getScaledInstance(100, -1, BufferedImage.SCALE_SMOOTH), w, h, this);
-
             }
-            
+            g.drawString(Integer.toString(clients.get(i).getCount()),w+15,h+80);
+
             w = w + 100;
 
         }
     }
         
-    // @Override
+    @Override
     public void run() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Viewer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        createBufferStrategy(2);
+
         while(true){
             try {
-                Thread.sleep(300);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Viewer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            paint();
         }
-        graphics = this.getGraphics();
-        if(graphics == null){
-            return;
-        }
-        paint(graphics);
-        }
+        
+        
     }
         
         

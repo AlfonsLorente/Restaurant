@@ -31,6 +31,7 @@ public class Pictures {
     
     private void setImages(){
         try {
+            this.imgs.put("background", ImageIO.read(new File("IMG/background.png")));
             this.imgs.put("meatChef", ImageIO.read(new File("IMG/cookingchef.png")));
             this.imgs.put("standbyChef", ImageIO.read(new File("IMG/standbychef.png")));
             this.imgs.put("meatClient", ImageIO.read(new File("IMG/eatingclient.png")));

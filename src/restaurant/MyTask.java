@@ -17,7 +17,7 @@ public class MyTask extends JFrame {
         new MyTask();
     }
     
-    Thread thread ;
+    private Thread thread ;
     private Viewer viewer;
     private int chefAmount =30;
     private int clientAmount = 45;
@@ -37,8 +37,12 @@ public class MyTask extends JFrame {
         viewer.setTable(table);
         this.setFrame();
         this.add(viewer);
-        //thread = new  Thread(viewer);
-        //thread.start();
+        try{
+            thread = new Thread(viewer);
+            thread.start();
+        }catch(Exception e){
+            e.getMessage();
+        }
         this.setVisible(true);
         
         
