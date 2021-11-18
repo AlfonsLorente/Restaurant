@@ -13,25 +13,20 @@ import java.util.logging.Logger;
  * @author alfon
  */
 public class Client extends Thread {
+    
+    //VARIABLES
     private int count;
     private Table table;
     private boolean hasEaten = false;
     private boolean hasMeat = false;
-
+    
+    //CONSTRUCTOR
     public Client(Table table) {
         this.count = 0;
         this.table = table;
     }
 
-    public boolean getHasMeat() {
-        return hasMeat;
-    }
-
-    public void setHasMeat(boolean hasMeat) {
-        this.hasMeat = hasMeat;
-    }
-    
-    
+    //GETTERS AND SETTERS
     public int getCount() {
         return count;
     }
@@ -40,9 +35,21 @@ public class Client extends Thread {
         this.count = count;
     }
     
-    public void eatBurger(Table table){
+    public boolean getHasMeat() {
+        return hasMeat;
+    }
+
+    public void setHasMeat(boolean hasMeat) {
+        this.hasMeat = hasMeat;
+    }
+    
+    //PUBLIC METHODS
+    //eatMeat: goes to table, takes a meat and then eat it
+    public void eatMeat(Table table){
+        //Take a meal from the table
         hasEaten = table.takeMeal(this);
         try {
+            //Eat the meat
             Thread.sleep((int)Math.floor(Math.random()*(8000-5000+1)+5000));
             hasMeat = false;
            
@@ -50,17 +57,18 @@ public class Client extends Thread {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //Add count to the amount of eaten meats
         if(hasEaten){
             count++;
-            System.out.println("Este cliente lleva pilladas " + count);
         }
        
     }
     
+    //run: overrides from Runnable and loops infinitely calling the eatMeat method
     @Override
     public void run() {
         while(true){
-        this.eatBurger(table);
+            this.eatMeat(table);
         }
     }
 }
