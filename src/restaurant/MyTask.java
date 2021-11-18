@@ -61,7 +61,6 @@ public class MyTask extends JFrame {
         for(int i = 0; i < chefAmount; i++){
             chefs.add(new Chef(table));
         }
-        System.out.println("Chefs creado");
     }
         
     //createChefs: fills the clients array
@@ -70,7 +69,6 @@ public class MyTask extends JFrame {
             clients.add(new Client(table));
             
         }
-        System.out.println("Clientes creados");
     }
     
     //executeChefs: Sets all the chefs into different threads
@@ -80,7 +78,6 @@ public class MyTask extends JFrame {
            thread.start();
         }
         
-        System.out.println("chefs ejecutados");
     }
         
     //executeClients: Sets all the clients into different threads
@@ -90,16 +87,14 @@ public class MyTask extends JFrame {
            thread.start();
         }
         
-        System.out.println("clientes ejecutados");
     }
     
     //Sets up the frame
     private void setFrame() {
         
-        this.setTitle("Flame");
+        this.setTitle("Restaurant");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(10, 10, 1510, 800);
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);        
     }
     
