@@ -105,7 +105,7 @@ public class Viewer extends Canvas implements Runnable {
         for(int i = 0; i < chefs.size(); i++){
             if(i%15 == 0 && i !=0){
                 h = h+110;
-                w= 0;
+                w = 0;
             }
             //draw the chefs depending on its state
             if(chefs.get(i).getHasMeat()){
