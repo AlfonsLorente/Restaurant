@@ -50,9 +50,10 @@ public class Client extends Thread {
         hasEaten = table.takeMeal(this);
         try {
             //Eat the meat
-            Thread.sleep((int)Math.floor(Math.random()*(8000-5000+1)+5000));
+            Thread.sleep((int)Math.floor(Math.random()*(5000-2000+1)+2000));
             hasMeat = false;
-           
+            Thread.sleep((int)Math.floor(Math.random()*(3000-1000+1)+1000));
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }

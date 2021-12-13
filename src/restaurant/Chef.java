@@ -49,8 +49,10 @@ public class Chef extends Thread{
     public void cookMeat(Table table){
         //Cook the meat
         try {
-            Thread.sleep((int)Math.floor(Math.random()*(6000-3000+1)+3000));
+            Thread.sleep((int)Math.floor(Math.random()*(3000-1000+1)+1000));
             hasMeat = true;
+            Thread.sleep((int)Math.floor(Math.random()*(2000-500+1)+500));
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Chef.class.getName()).log(Level.SEVERE, null, ex);
         }
